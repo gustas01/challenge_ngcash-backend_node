@@ -1,11 +1,12 @@
 import { Router } from "express";
 import accountController from "../controllers/AccountController";
+import loginRequired from "../middlewares/loginRequired";
 
 const router = Router()
 
-router.post('/', accountController.create)
-router.get('/', accountController.read)
-router.put('/', accountController.update)
-router.delete('/', accountController.delete)
+router.post('/', loginRequired, accountController.create)
+router.get('/', loginRequired, accountController.read)
+router.put('/', loginRequired, accountController.update)
+router.delete('/', loginRequired, accountController.delete)
 
 export default router

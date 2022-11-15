@@ -2,16 +2,24 @@ import Sequelize, {Model} from "sequelize";
 import bcryptjs from 'bcryptjs'
 
 import databaseConfig from "../config/database";
-import Account from './Account'
+import Account from "./Account";
 
 const connection = new Sequelize(databaseConfig)
 
 const User = connection.define('User', {
-  userName: {
+  user_name: {
     type: Sequelize.STRING,
-    defaultValue: '',
     allowNull: false,
+    validate: {
+      len: {
+        min: 3,
+        msg: "O user_name deve ter pelo menos 3 caracteres "
+      },
     },
+    unique: {
+      msg: "O user_name que você tentou utilizar já está em uso"
+    }
+  },
   password_hash: {
     type: Sequelize.STRING,
     defaultValue: '',
@@ -21,15 +29,11 @@ const User = connection.define('User', {
     defaultValue: '',
     validate: {
       len: {
-        args: [8, 50],
-        msg: 'A senha deve conter entre 8 e 50 caracteres'
+        min: 8,
+        msg: 'A senha deve conter pelo menos 8 caracteres'
       }
     }
   },
-  accountId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  }
 
 },
 {

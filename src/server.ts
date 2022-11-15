@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import userRoutes from './routes/userRoutes'
 import accountRoutes from './routes/accountRoutes'
 import transactionRoutes from './routes/transactionRoutes'
+import tokenRoutes from './routes/tokenRoutes'
 
 
 const app = express()
@@ -18,6 +19,9 @@ app.use(cors())
 
 app.use('/users', userRoutes)
 app.use('/accounts', accountRoutes)
-app.use('/transaction', transactionRoutes)
+app.use('/transactions', transactionRoutes)
+app.use('/tokens', tokenRoutes)
+
+
 
 app.listen(process.env.APP_PORT, () => console.log(`servidor executando na porta ${process.env.APP_PORT} ${process.env.APP_URL}`))

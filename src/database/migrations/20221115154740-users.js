@@ -12,7 +12,7 @@ module.exports = {
         primaryKey: true,
       },
 
-      userName: {
+      user_name: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
@@ -23,9 +23,10 @@ module.exports = {
         allowNull: false,
       },
 
-      accountId: {
+      account_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        defaultValue: 0,
         references: {
           model: {
             tableName: 'accounts',
@@ -34,6 +35,14 @@ module.exports = {
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
       },
     });
   },

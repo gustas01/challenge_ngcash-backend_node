@@ -1,8 +1,13 @@
 import Transaction from '../models/Transaction'
+import { Request, Response } from 'express'
 
 class TransactionController {
-  async create(req, res){
-    res.send('olá do TransactionController create')
+  async create(value: number){
+    try{
+//essa função vai ser chamada no update de accounts
+    }catch(err){
+
+    }
   }
 
   async read(req, res){

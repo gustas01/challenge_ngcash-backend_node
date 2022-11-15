@@ -1,9 +1,8 @@
 import Account from '../models/Account'
+import { Request, Response } from 'express'
 
 class AccountController {
-  async create(req, res){
-    res.send('olá do accountController create')
-  }
+  async create(){}
 
   async read(req, res){
     res.send('olá do accountController read')

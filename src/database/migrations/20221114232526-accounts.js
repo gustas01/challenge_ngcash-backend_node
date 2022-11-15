@@ -13,11 +13,19 @@ module.exports = {
       balance: {
         type: Sequelize.FLOAT,
         defaultValue: 100,
-      }
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
      });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down (queryInterface) {
     await queryInterface.dropTable('accounts');
   }
 };
