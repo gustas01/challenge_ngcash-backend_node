@@ -4,7 +4,6 @@ import loginRequired from "../middlewares/loginRequired";
 
 const router = Router()
 
-router.post('/', loginRequired, transactionController.create)
 router.get('/', loginRequired, transactionController.read)
 router.put('/', loginRequired, transactionController.update)
 router.delete('/', loginRequired, transactionController.delete)
