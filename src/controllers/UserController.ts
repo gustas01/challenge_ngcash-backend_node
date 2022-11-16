@@ -4,6 +4,7 @@ import User from '../models/User'
 import databaseConfig from "../config/database";
 import Account from "../models/Account";
 import Transaction from "../models/Transaction";
+import IUser from "../interfaces/IUser";
 
 class UserController {
   async create(req: any, res: any){
@@ -16,7 +17,7 @@ class UserController {
         return res.status(400).json({errors: ["A senha deve ter pelo menos 1 letra maiúscula e 1 minúscula"]})
       
       
-      const newUser = await connection.transaction(async (t: any) => {
+      const newUser: IUser = await connection.transaction(async (t: any) => {
         const newAccount = await Account.create({}, {transaction: t})
         const { id } = newAccount
         
@@ -36,7 +37,7 @@ class UserController {
 
   async read(req: any, res: any){
     try{
-      const user = await User.findByPk(req.user_id)
+      const user: IUser = await User.findByPk(req.user_id)
 
       if(!user){
         return res.status(404).json({

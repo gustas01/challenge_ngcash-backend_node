@@ -31,6 +31,10 @@ class TransactionController {
       if(req.query.filtercashin == 'true'){
         transactions = transactions.filter((el: ITransaction) => el.credited_account_id === req.account_id)
       }
+      
+      if(req.query.filterdate){
+        transactions = transactions.filter((el: ITransaction) => new Date(el.created_at).toLocaleDateString('pt-BR') === req.query.filterdate )
+      }
 
 
       
