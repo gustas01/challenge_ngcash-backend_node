@@ -31,7 +31,6 @@ export default async(req, res, next) => {
     req.user_id = id
     req.user_name = user_name
     req.account_id = account_id
-    console.log(dados);
     
     return next()
   }catch(e){
