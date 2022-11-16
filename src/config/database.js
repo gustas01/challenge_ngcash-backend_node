@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-module.exports = {
+const databaseConfig = {
   dialect: 'postgres',
   port: process.env.DATABASE_PORT,
   username: process.env.DATABASE_USERNAME,
@@ -17,3 +17,5 @@ module.exports = {
   },
   timezone: 'America/Sao_Paulo',
 }
+
+export default databaseConfig

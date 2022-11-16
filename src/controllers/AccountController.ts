@@ -1,5 +1,6 @@
 import Account from '../models/Account'
 import User from '../models/User'
+import TransactionController from './TransactionController'
 
 class AccountController {
   async create(){}
@@ -17,7 +18,7 @@ class AccountController {
       return res.status(200).json({
         balance: account.balance
       })
-    }catch(error){
+    }catch(error: any){
       return res.status(200).json({
         errors: error.errors?.map(err => err.message)
       })
@@ -56,17 +57,12 @@ class AccountController {
       await accountUserCashOut.update({balance: accountUserCashOut.balance})
       await account.update({balance: account.balance})
 
+      TransactionController.create(req.account_id, userCashIn.account_id, req.body.cashOutValue)
 
       return res.status(200).send(
         `Cash-out de ${req.body.cashOutValue}R$ realizado com sucesso`
       )
-
-//e registrar na tabela de transactions
-      
-
-
-
-    }catch(error){
+    }catch(error: any){
       return res.status(200).json({
         errors: error.errors?.map(err => err.message)
       })

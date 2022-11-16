@@ -1,5 +1,4 @@
-import Sequelize from "sequelize";
-import { Request, Response } from 'express'
+import { Sequelize } from "sequelize";
 
 import User from '../models/User'
 import databaseConfig from "../config/database";
@@ -7,7 +6,7 @@ import Account from "../models/Account";
 import Transaction from "../models/Transaction";
 
 class UserController {
-  async create(req: Request, res: Response){
+  async create(req: any, res: any){
     const connection = new Sequelize(databaseConfig)
     
     try{
@@ -17,8 +16,8 @@ class UserController {
         return res.status(400).json({errors: ["A senha deve ter pelo menos 1 letra maiúscula e 1 minúscula"]})
       
       
-      const newUser = await connection.transaction(async (t) => {
-        const newAccount = await Account.create({balance: 100}, {transaction: t})
+      const newUser = await connection.transaction(async (t: any) => {
+        const newAccount = await Account.create({}, {transaction: t})
         const { id } = newAccount
         
         return await User.create({...req.body, account_id: id}, {transaction: t})
@@ -27,7 +26,7 @@ class UserController {
       const {id, user_name} = newUser
 
       return res.status(200).json({id, user_name})
-      }catch(error){
+      }catch(error: any){
         
         return res.status(400).json({
           errors: error.errors?.map(err => err.message)
@@ -49,7 +48,7 @@ class UserController {
         id: user.id,
         user_name: user.user_name
       })
-    }catch(error){
+    }catch(error: any){
       return res.status(400).json({
         errors: error.errors?.map(err => err.message)
       })
@@ -69,7 +68,7 @@ class UserController {
       const {id, user_name} = updatedUser
       
       return res.status(200).json({id, user_name})
-    }catch(error){
+    }catch(error: any){
       return res.status(400).json({
         errors: error.errors?.map(err => err.message)
       })
@@ -91,7 +90,7 @@ class UserController {
       await Transaction.destroy({where: {debited_account_id: account_id}})
 
       return res.status(200).json('Usuário deletado')
-    }catch(error){
+    }catch(error: any){
       return res.status(200).json({
         errors: error.errors?.map(err => err.message)
       })

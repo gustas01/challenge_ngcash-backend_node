@@ -1,8 +1,6 @@
-import Sequelize, {Model} from "sequelize";
-import bcryptjs from 'bcryptjs'
+import Sequelize from "sequelize";
 
 import databaseConfig from "../config/database";
-import Account from './Account'
 
 const connection = new Sequelize(databaseConfig)
 

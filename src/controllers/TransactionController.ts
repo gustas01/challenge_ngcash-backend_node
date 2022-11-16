@@ -1,17 +1,19 @@
 import Transaction from '../models/Transaction'
-import { Request, Response } from 'express'
 
 class TransactionController {
-  async create(value: number){
+  async create(debited_account_id: number, credited_account_id: number, value: number){
     try{
-//essa função vai ser chamada no update de accounts
+      //essa função vai ser chamada no update de accounts
+      const transaction = await Transaction.create({debited_account_id, credited_account_id, value})
+      
+      return transaction
     }catch(err){
 
     }
   }
 
-  async read(req, res){
-    res.send('olá do TransactionController read')
+  async read(req: any, res: any){
+
   }
 
   async update(req, res){
