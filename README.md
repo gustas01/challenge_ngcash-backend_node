@@ -25,7 +25,7 @@ DATABASE_PASSWORD=
 # vários caracteres aleatórios para que o bcryptjs possa gerar o hash a partir da senha do usuário.
 TOKEN_SECRET=
 
-# tempo de expiração do token do usuário gerado (exemplos: 7d, 24h; para 7 dias e 24 horas respectivamente).
+# tempo de expiração do token do usuário (exemplos: 7d, 24h; para 7 dias e 24 horas respectivamente).
 TOKEN_EXPIRATION=
 
 APP_URL=http://localhost:3001
