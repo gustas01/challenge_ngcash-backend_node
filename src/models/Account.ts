@@ -1,4 +1,4 @@
-import Sequelize from "sequelize";
+import { Sequelize, DataTypes } from "sequelize";
 import databaseConfig from "../config/database";
 
 import User from './User'
@@ -8,7 +8,7 @@ const connection = new Sequelize(databaseConfig)
 
 const Account = connection.define('Account', {
   balance: {
-    type: Sequelize.FLOAT,
+    type: DataTypes.FLOAT,
     defaultValue: 100,
   }
 })

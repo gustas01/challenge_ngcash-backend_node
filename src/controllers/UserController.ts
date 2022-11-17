@@ -17,14 +17,14 @@ class UserController {
         return res.status(400).json({errors: ["A senha deve ter pelo menos 1 letra maiúscula e 1 minúscula"]})
       
       
-      const newUser: IUser = await connection.transaction(async (t: any) => {
+      const newUser = await connection.transaction(async (t: any) => {
         const newAccount = await Account.create({}, {transaction: t})
-        const { id } = newAccount
+        const { id } = newAccount.dataValues
         
         return await User.create({...req.body, account_id: id}, {transaction: t})
       })
 
-      const {id, user_name} = newUser
+      const {id, user_name} = newUser.dataValues
 
       return res.status(200).json({id, user_name})
       }catch(error: any){
@@ -37,7 +37,7 @@ class UserController {
 
   async read(req: any, res: any){
     try{
-      const user: IUser = await User.findByPk(req.user_id)
+      const user = await User.findByPk(req.user_id)
 
       if(!user){
         return res.status(404).json({
@@ -46,8 +46,8 @@ class UserController {
       }
 
       return res.status(200).json({
-        id: user.id,
-        user_name: user.user_name
+        id: user.dataValues.id,
+        user_name: user.dataValues.user_name
       })
     }catch(error: any){
       return res.status(400).json({
@@ -66,7 +66,7 @@ class UserController {
         })
 
       const updatedUser = await user.update(req.body)
-      const {id, user_name} = updatedUser
+      const {id, user_name} = updatedUser.dataValues
       
       return res.status(200).json({id, user_name})
     }catch(error: any){
@@ -84,7 +84,7 @@ class UserController {
         return res.status(404).json({errors: ["Usurário não encontrado"]})
       }
 
-      const {account_id} = user
+      const {account_id} = user.dataValues
 
       await User.destroy({where: {id: req.user_id}})
       await Account.destroy({where: {id: account_id}})

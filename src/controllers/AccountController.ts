@@ -16,7 +16,7 @@ class AccountController {
       }
 
       return res.status(200).json({
-        balance: account.balance
+        balance: account?.dataValues.balance
       })
     }catch(error: any){
       return res.status(200).json({
@@ -30,12 +30,12 @@ class AccountController {
     try{
       const account = await Account.findByPk(req.account_id)
       
-      if(account.balance < req.body.cashOutValue)
+      if(account?.dataValues.balance < req.body.cashOutValue)
         return res.status(401).json({
           errors: ['Saldo insuficiente']
       })
       
-      //verificar se o usuário não está mandando para ele mesmo, comparar os user_names
+      //verificar se o usuário não está mandando para ele mesmo
       if(req.user_name === req.body.user_name_cashIn)
         return res.status(401).json({
           errors: ["Não é possível fazer cash-out para si mesmo"]
@@ -48,19 +48,17 @@ class AccountController {
           errors: ["Não foi possível encontrar usuário para cash-in"]
       })
       
-      const accountUserCashOut = await Account.findByPk(userCashIn.account_id)
+      const accountUserCashOut = await Account.findByPk(userCashIn.dataValues.account_id)
       
-      
-      accountUserCashOut.balance += Number(req.body.cashOutValue)
-      account.balance -= req.body.cashOutValue
+      await accountUserCashOut?.update({balance: accountUserCashOut.dataValues.balance + Number(req.body.cashOutValue)})
+      await account?.update({balance: account.dataValues.balance - req.body.cashOutValue})
+  
 
-      await accountUserCashOut.update({balance: accountUserCashOut.balance})
-      await account.update({balance: account.balance})
 
-      TransactionController.create(req.account_id, userCashIn.account_id, req.body.cashOutValue)
+      TransactionController.create(req.account_id, userCashIn.dataValues.account_id, req.body.cashOutValue)
 
       return res.status(200).send(
-        `Cash-out de ${req.body.cashOutValue}R$ realizado com sucesso`
+        `Cash-out de ${req.body.cashOutValue}R$ realizado com sucesso para ${req.body.user_name_cashIn}`
       )
     }catch(error: any){
       return res.status(200).json({

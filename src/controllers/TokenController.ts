@@ -21,13 +21,13 @@ class TokenController {
       })
     }
 
-    if(!(await bcryptjs.compare(password, user.password_hash))){
+    if(!(await bcryptjs.compare(password, user.dataValues.password_hash))){
       return res.status(401).json({
         errors: ['Senha inválida']
       })
     }
 
-    const { id, account_id } = user
+    const { id, account_id } = user.dataValues
     const token = jwt.sign({id, user_name, account_id}, process.env.TOKEN_SECRET, {expiresIn: process.env.TOKEN_EXPIRATION})
 
     res.json({token})
