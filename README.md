@@ -133,4 +133,4 @@ Porém a url fica como `http://localhost:3001/transactions?filtercashout=true`
 E para filtrar por data, basta passar a data no formato aaaa/MM/dd. <br>
 `http://localhost:3001/transactions?filterdate=2022/11/16` para filtrar transações da data de 16 de novembro de 2022.
 
-Também é claro possível filtrar usando mais de um parâmetro. Por exemplo filtrando as transações do usuário logado em que ele fez Cash-Out no dia 16 de novembro de 2022, bastaria fazer uma consulta do tipo GET na url <br> `http://localhost:3001/transactions?filterdate=16/11/2022&filtercashout=true`
+Também é claro possível filtrar usando mais de um parâmetro. Por exemplo filtrando as transações do usuário logado em que ele fez Cash-Out no dia 16 de novembro de 2022, bastaria fazer uma consulta do tipo GET na url <br> `http://localhost:3001/transactions?filterdate=2022/11/16&filtercashout=true`
