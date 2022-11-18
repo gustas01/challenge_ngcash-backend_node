@@ -130,7 +130,7 @@ a consulta GET será feita na url `http://localhost:3001/transactions?filtercash
 O equivalente vale para as transações em que o usuário logado fez Cash-Out. <br>
 Porém a url fica como `http://localhost:3001/transactions?filtercashout=true`
 
-E para filtrar por data, basta passar a data no formato dd/MM/aaaa. <br>
-`http://localhost:3001/transactions?filterdate=16/11/2022`
+E para filtrar por data, basta passar a data no formato mm/DD/aaaa ou mm-DD-aaaa. <br>
+`http://localhost:3001/transactions?filterdate=11/16/2022` para filtrar transações da data de 16 de novembro de 2022.
 
 Também é claro possível filtrar usando mais de um parâmetro. Por exemplo filtrando as transações do usuário logado em que ele fez Cash-Out no dia 16 de novembro de 2022, bastaria fazer uma consulta do tipo GET na url <br> `http://localhost:3001/transactions?filterdate=16/11/2022&filtercashout=true`
