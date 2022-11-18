@@ -32,9 +32,12 @@ class TransactionController {
         transactions = transactions.filter(el => el.dataValues.credited_account_id === req.account_id)
       }
       
-      if(req.query.filterdate){
-        transactions = transactions.filter(el => new Date(el.dataValues.created_at).toLocaleDateString('pt-BR') === req.query.filterdate )
+      if(req.query.filterdate && new Date(req.query.filterdate).toLocaleDateString() !== 'Invalid Date'){
+        transactions = transactions.filter(el => new Date(req.query.filterdate).toLocaleDateString() === new Date(el.dataValues.created_at).toLocaleDateString()) 
       }
+
+      if(req.query.filterdate && new Date(req.query.filterdate).toLocaleDateString() === 'Invalid Date')
+        return res.status(400).json({errors: ["Data inválida"]})
 
 
       
